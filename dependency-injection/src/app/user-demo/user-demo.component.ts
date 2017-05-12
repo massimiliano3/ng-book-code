@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../services/user.service';
+import { GroupService } from '../services/group.service';
 
 @Component({
   selector: 'app-user-demo',
@@ -10,10 +11,11 @@ import { UserService } from '../services/user.service';
 export class UserDemoComponent {
   userName: string;
   // removed `userService` because of constructor shorthand below
+  groupName: string;
 
   // Angular will inject the singleton instance of `UserService` here.
   // We set it as a property with `private`.
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private groupService: GroupService) {
     // empty because we don't have to do anything else!
   }
 
@@ -24,6 +26,10 @@ export class UserDemoComponent {
     this.userService.setUser({
       name: 'Nate Murray'
     });
+
+    this.groupService.setGroup({name: 'group 1'});
+
+    this.groupName = this.groupService.getGroup().name;
 
     // now **read** the user name from the service
     this.userName = this.userService.getUser().name;
